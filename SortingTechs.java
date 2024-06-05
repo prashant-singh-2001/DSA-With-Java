@@ -203,21 +203,24 @@ public class SortingTechs {
         resetArray(size);
 
         start = System.nanoTime();
-        Sort.quickSort(arr);
+        Sort.heapSort(arr);
         end = System.nanoTime();
-        tEQS = end - start;
+        tEHS = end - start;
         if (isSorted())
-            System.out.println("Time taken by Merge Sort: " + tEQS + " nanoseconds \n");
+            System.out.println("Time taken by Merge Sort: " + tEHS + " nanoseconds \n");
 
         tEBS /= size;
         tEIS /= size;
         tEMS /= size;
         tEQS /= size;
+        tEHS/=size;
 
         System.out.println("Mean Bubble Sort Time: " + tEBS);
         System.out.println("Mean Insertion Sort Time: " + tEIS);
         System.out.println("Mean Merge Sort Time: " + tEMS);
         System.out.println("Mean Quick Sort Time: " + tEQS);
+        System.out.println("Mean Heap Sort Time: " + tEHS);
+        
 
     }
 
