@@ -109,7 +109,7 @@ class LinkedList {
     }
 }
 
-public class LL1 {
+public class LinkedListImpl {
     public static void main(String[] args) {
         LinkedList ll = new LinkedList();
         ll.insert(1);
