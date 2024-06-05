@@ -25,7 +25,7 @@ This repository contains Java implementations of fundamental data structures. Ea
 To get started with this repository, you can clone it to your local machine using the following command:
 
 ```bash
-git clone [https://github.com/your-username/data-structures-in-java.git](https://github.com/prashant-singh-2001/DSA-With-Java.git)
+git clone https://github.com/prashant-singh-2001/DSA-With-Java.git
 ```
 
 Make sure you have Java installed on your machine. You can run the Java programs from the command line or import the project into your favorite IDE (e.g., IntelliJ IDEA, Eclipse).
