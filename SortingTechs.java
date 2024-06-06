@@ -158,7 +158,7 @@ public class SortingTechs {
 
     public static void main(String[] args) {
         double tEBS, tEIS, tEMS, tEQS, tEHS;
-        int size = 2000;
+        int size = 200000;
         resetArray(size);
 
         // Bubble Sort

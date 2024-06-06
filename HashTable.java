@@ -34,6 +34,7 @@ public class HashTable {
     }
 
     // Mid Square Hashing
+    @SuppressWarnings("unused")
     private int midSquareHashing(int a) {
         int square = a * a;
         String squareStr = String.valueOf(square);
@@ -43,6 +44,7 @@ public class HashTable {
     }
 
     // Mid Fold Hashing
+    @SuppressWarnings("unused")
     private int midFoldHashing(int a) {
         String numStr = String.valueOf(a);
         int len = numStr.length();
@@ -54,6 +56,7 @@ public class HashTable {
     }
 
     // Linear Probing
+    @SuppressWarnings("unused")
     private int linearProbing(int key) {
         int hashValue = hashingFunction(key);
         while (!hash[hashValue].isEmpty()) {
@@ -63,6 +66,7 @@ public class HashTable {
     }
 
     // Quadratic Probing
+    @SuppressWarnings("unused")
     private int quadraticProbing(int key) {
         int hashValue = hashingFunction(key);
         int i = 1;
