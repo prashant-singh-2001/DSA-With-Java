@@ -24,6 +24,16 @@ class Search {
         }
         return new Result();
     }
+    public static Result binarySearch(int[] arr,int target){
+        return binarySearchHelper(arr,target,0,arr.length-1);
+    }
+    private static Result binarySearchHelper(int[] arr,int target,int l,int r){
+        if(l>r) return new Result();
+        int m=l+(r-l)/2;
+        if(arr[m]==target) return new Result();
+        else if(arr[m]>target) return binarySearchHelper(arr,target,l,m-1);
+        else return binarySearchHelper(arr,target,m+1,r);
+    }
 }
 
 public class SearchingTechs {
