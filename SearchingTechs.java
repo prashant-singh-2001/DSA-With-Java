@@ -33,10 +33,12 @@ class Search {
         int l = 0, r = arr.length - 1;
         while (l < r) {
             m = l + (r - l) / 2;
-            if (arr[m] == target) 
-            return new Result(target, m);
-            else if(arr[m]>target) r=m-1;
-            else l=m+1;
+            if (arr[m] == target)
+                return new Result(target, m);
+            else if (arr[m] > target)
+                r = m - 1;
+            else
+                l = m + 1;
         }
         return new Result();
     }
