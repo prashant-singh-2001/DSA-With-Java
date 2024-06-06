@@ -44,13 +44,17 @@ Make sure you have Java installed on your machine. You can run the Java programs
 - **Description:** A queue is a linear data structure that follows a particular order in which the operations are performed. The order is First In First Out (FIFO).
 - **File:** `QueueImpl.java`
 
+### Hash Table
+- **Description:** A hash table is a data structure which implements an associative array abstract data type, a structure that can map keys to values.
+- **Files:** `HashTable.java`
+
 ### Sorting Techniques
 - **Description:** Sorting is used in various circumstances where one need to have the data in a particular order.
 - **Files:** `SortingTechs.java`
 
-### Hash Table
-- **Description:** A hash table is a data structure which implements an associative array abstract data type, a structure that can map keys to values.
-- **Files:** `HashTable.java`
+### Searching Technique
+- **Description:** Searching refers to finding one specific value in a pool of data. There are various techniques used for their efficiencies. 
+- **Files:** `SearchTechs.java`
 
 
 ## Contributing
