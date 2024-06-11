@@ -62,6 +62,30 @@ class BinaryTree {
         }
     }
 
+    public boolean delete(int n) {
+        TreeNode temp = root;
+        TreeNode prev = root;
+        while (temp.data != n && temp != null && (temp.right != null || temp.left != null)) {
+            prev = temp;
+            if (temp.data > n) {
+                temp = temp.left;
+            } else {
+                temp = temp.right;
+            }
+        }
+        if (temp == null)
+            return false;
+        if (temp.right == null && temp.left == null) {
+            prev.left = prev.right = null;
+            return true;
+        }
+        // if(!(temp.right == null || temp.left!=null) prev.left=temp.){
+
+        // }
+
+        return true;
+    }
+
     public List<Integer> preOrderTraversal() {
         List<Integer> ls = new ArrayList<>();
         preOrderTraversalHelper(root, ls);
@@ -90,6 +114,7 @@ class BinaryTree {
         ls.add(root.data);
         inOrderTraversalHelper(root.right, ls);
     }
+
     public List<Integer> postOrderTraversal() {
         List<Integer> ls = new ArrayList<>();
         postOrderTraversalHelper(root, ls);
@@ -117,5 +142,5 @@ public class BinaryTreeImpl {
         System.out.println(binaryTree.inOrderTraversal().toString());
         System.out.println(binaryTree.postOrderTraversal().toString());
     }
-   
+
 }
