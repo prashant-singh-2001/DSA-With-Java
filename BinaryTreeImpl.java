@@ -161,18 +161,44 @@ class BinaryTree {
         postOrderTraversalHelper(root.right, ls); // Traverse right subtree
         ls.add(root.data); // Visit the node
     }
+
+    // Method to visualize the binary tree
+    public void printTree() {
+        printTreeHelper(root, 0);
+    }
+
+    private void printTreeHelper(TreeNode node, int level) {
+        if (node == null) {
+            return;
+        }
+        printTreeHelper(node.right, level + 1); // Print right subtree
+        if (level != 0) {
+            for (int i = 0; i < level - 1; i++) {
+                System.out.print("|\t");
+            }
+            System.out.println("|-------" + node.data);
+        } else {
+            System.out.println(node.data);
+        }
+        printTreeHelper(node.left, level + 1); // Print left subtree
+    }
 }
 
 public class BinaryTreeImpl {
     public static void main(String[] args) {
-        int[] arr = { 5, 1, 2, 5, 6, 4, 45, 2, 9, 7, 3, 4, 5, 6, 3, 1, 2, 5, 4, 7, 8, 9, 6, 4, 5, 9, 7, 6, 5, 4, 2, 3,
-                1, 7, 8, 6, 5, 4, 9, 3, 2, 5, 7, 4, 1, 2, 58, 9 };
+        int[] arr = { 5,2,1,3,7,6,8,7,9 };
         BinaryTree binaryTree = new BinaryTree(); // Create a new binary tree
         for (int i : arr) {
             binaryTree.insert(i); // Insert elements into the binary tree
         }
-        System.out.println(binaryTree.preOrderTraversal().toString()); // Print pre-order traversal
-        System.out.println(binaryTree.inOrderTraversal().toString()); // Print in-order traversal
-        System.out.println(binaryTree.postOrderTraversal().toString()); // Print post-order traversal
+        System.out.println("Pre-order Traversal:");
+        System.out.println(binaryTree.preOrderTraversal().toString());
+        System.out.println("In-order Traversal:");
+        System.out.println(binaryTree.inOrderTraversal().toString());
+        System.out.println("Post-order Traversal:");
+        System.out.println(binaryTree.postOrderTraversal().toString());
+        
+        System.out.println("\nTree Visualization:");
+        binaryTree.printTree(); // Print the tree structure
     }
 }
