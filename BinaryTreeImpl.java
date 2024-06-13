@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 final class TreeNode {
     private static final int NaN = 0; // Define a constant for NaN value
@@ -31,14 +30,18 @@ final class TreeNode {
 class BinaryTree {
     private TreeNode root; // Root of the binary tree
     public int height;
+    public int nodeCount;
+
     BinaryTree() {
         root = null; // Initialize the root to null
         calculateHeight();
+        nodeCount = this.inOrderTraversal().size();
     }
 
     BinaryTree(TreeNode root) {
         this.root = root; // Set the root to the given node
         calculateHeight();
+        nodeCount = this.inOrderTraversal().size();
     }
 
     public void insert(int data) {
@@ -48,6 +51,7 @@ class BinaryTree {
             insertRecur(root, data); // Recursively insert the data
         }
         calculateHeight();
+        nodeCount = this.inOrderTraversal().size();
     }
 
     public void insertRecur(TreeNode root, int data) {
@@ -114,6 +118,7 @@ class BinaryTree {
             temp.data = successorValue; // Replace temp's data with successor's data
         }
         calculateHeight();
+        nodeCount = this.inOrderTraversal().size();
         return true;
     }
 
@@ -125,19 +130,33 @@ class BinaryTree {
         return node; // Return the leftmost node
     }
 
-    private void calculateHeight(){
-        this.height=heightHelper(root);
+    private void calculateHeight() {
+        this.height = heightHelper(root);
     }
-    
+
     private int heightHelper(TreeNode node) {
-    if (node == null) {
-        return 0;
+        if (node == null) {
+            return 0;
+        }
+        int leftHeight = heightHelper(node.left);
+        int rightHeight = heightHelper(node.right);
+        return Math.max(leftHeight, rightHeight) + 1;
     }
-    int leftHeight = heightHelper(node.left);
-    int rightHeight = heightHelper(node.right);
-    return Math.max(leftHeight, rightHeight) + 1;
-}
-    
+
+    public boolean exists(int data) {
+        TreeNode temp = root;
+        while (temp != null) {
+            if (temp.data == data) {
+                return true;
+            }else if(temp.data>data){
+                temp=temp.left;
+            }else{
+                temp=temp.right;
+            }
+        }
+        return false;
+    }
+
     public List<Integer> preOrderTraversal() {
         List<Integer> ls = new ArrayList<>(); // List to store traversal result
         preOrderTraversalHelper(root, ls); // Call the helper function
@@ -180,25 +199,26 @@ class BinaryTree {
         ls.add(root.data); // Visit the node
     }
 
-    public Map<Integer,List<Integer>> levelOrderTraversal(){
-        Map<Integer,List<Integer>> ml=new HashMap<>();
-        levelOrderTraversalHelper(root,0,ml);
+    public Map<Integer, List<Integer>> levelOrderTraversal() {
+        Map<Integer, List<Integer>> ml = new HashMap<>();
+        levelOrderTraversalHelper(root, 0, ml);
         return ml;
-    }   
+    }
 
-    private void levelOrderTraversalHelper(TreeNode root, int level, Map<Integer,List<Integer>> ml) {
-        if(root==null) return;
-        if(ml.get(level)==null){
-            List<Integer> li=new ArrayList<>();
+    private void levelOrderTraversalHelper(TreeNode root, int level, Map<Integer, List<Integer>> ml) {
+        if (root == null)
+            return;
+        if (ml.get(level) == null) {
+            List<Integer> li = new ArrayList<>();
             li.add(root.data);
             ml.put(level, li);
-        }else{
-            List<Integer> li=ml.get(level);
+        } else {
+            List<Integer> li = ml.get(level);
             li.add(root.data);
             ml.put(level, li);
         }
-        levelOrderTraversalHelper(root.left, level+1, ml);
-        levelOrderTraversalHelper(root.right, level+1, ml);
+        levelOrderTraversalHelper(root.left, level + 1, ml);
+        levelOrderTraversalHelper(root.right, level + 1, ml);
     }
 
     // Method to visualize the binary tree
@@ -225,24 +245,24 @@ class BinaryTree {
 
 public class BinaryTreeImpl {
     public static void main(String[] args) {
-        int[] arr = { 5,2,1,3,7,6,8,7,9 };
+        int[] arr = { 5, 2, 1, 3, 7, 6, 8, 7, 9 };
         BinaryTree binaryTree = new BinaryTree(); // Create a new binary tree
         for (int i : arr) {
             binaryTree.insert(i); // Insert elements into the binary tree
         }
-        
+
         System.out.println("Pre-order Traversal:");
         System.out.println(binaryTree.preOrderTraversal().toString());
-        
+
         System.out.println("In-order Traversal:");
         System.out.println(binaryTree.inOrderTraversal().toString());
 
         System.out.println("Post-order Traversal:");
         System.out.println(binaryTree.postOrderTraversal().toString());
-        
+
         System.out.println("Level-order Traversal:");
         System.out.println(binaryTree.levelOrderTraversal().toString());
-        
+
         System.out.println("\nTree Visualization:");
         binaryTree.printTree(); // Print the tree structure
 
