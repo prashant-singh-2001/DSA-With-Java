@@ -44,6 +44,24 @@ class BinaryTree {
         nodeCount = this.inOrderTraversal().size();
     }
 
+    // Static Functions
+    public static boolean identicalTrees(BinaryTree a, BinaryTree b) {
+        if (a.root == null && b.root == null)
+            return true;
+        return identicalTrees(a.root, b.root);
+    }
+
+    private static boolean identicalTrees(TreeNode a, TreeNode b) {
+        if (a == null && b == null)
+            return true;
+        else if (a == null ^ b == null)
+            return false;
+        boolean identicalNode = b.data == a.data;
+        boolean rightIdentical = identicalTrees(a.right, b.right);
+        boolean leftIdentical = identicalTrees(a.left, b.left);
+        return identicalNode && rightIdentical && leftIdentical;
+    }
+
     public void insert(int data) {
         if (root == null) {
             root = new TreeNode(data); // Create a new root node if tree is empty
@@ -148,15 +166,48 @@ class BinaryTree {
         while (temp != null) {
             if (temp.data == data) {
                 return true;
-            }else if(temp.data>data){
-                temp=temp.left;
-            }else{
-                temp=temp.right;
+            } else if (temp.data > data) {
+                temp = temp.left;
+            } else {
+                temp = temp.right;
             }
         }
         return false;
     }
 
+    public boolean isBalance() {
+        return isBalance(root.left, root.right);
+    }
+
+    private boolean isBalance(TreeNode left, TreeNode right) {
+        if (left == null && right == null)
+            return true;
+        else if (left != null && right != null)
+            return isBalance(left.left, left.right) && isBalance(right.left, right.right);
+        else
+            return false;
+    }
+
+    public int lowestCommonAncestor(int a, int b) {
+        return lowestCommonAncestor(root, a, b).data;
+    }
+
+    private TreeNode lowestCommonAncestor(TreeNode root, int a, int b) {
+        if (root == null || root.data == a || root.data == b) {
+            return root;
+        }
+
+        TreeNode left = lowestCommonAncestor(root.left, a, b);
+        TreeNode right = lowestCommonAncestor(root.right, a, b);
+
+        if (left != null && right != null) {
+            return root;
+        }
+
+        return left != null ? left : right;
+    }
+
+    // Various Traversal Techniques
     public List<Integer> preOrderTraversal() {
         List<Integer> ls = new ArrayList<>(); // List to store traversal result
         preOrderTraversalHelper(root, ls); // Call the helper function
@@ -245,28 +296,55 @@ class BinaryTree {
 
 public class BinaryTreeImpl {
     public static void main(String[] args) {
-        int[] arr = { 5, 2, 1, 3, 7, 6, 8, 7, 9 };
+        int[] arr = { 5, 2, 1, 3, 7, 6, 9, 8, 10 };
         BinaryTree binaryTree = new BinaryTree(); // Create a new binary tree
         for (int i : arr) {
             binaryTree.insert(i); // Insert elements into the binary tree
         }
+        int[] arr2 = { 5, 2, 1, 3, 8, 6, 9, 7, 10 };
+        BinaryTree binaryTreeBeta = new BinaryTree(); // Create a new binary tree
+        for (int i : arr2) {
+            binaryTreeBeta.insert(i); // Insert elements into the binary tree
+        }
 
+        System.out.println("==========================================================================");
+        System.out.println("\nHeight of Tree :");
+        System.out.println(binaryTree.height);
+
+        System.out.println("\n\n\n==========================================================================");
+        System.out.println("\nTotal Node :");
+        System.out.println(binaryTree.nodeCount);
+
+        System.out.println("\n\n\n==========================================================================");
+        System.out.println("\nIs Balanced : ");
+        System.out.println(binaryTree.isBalance());
+
+        System.out.println("\n\n\n==========================================================================");
         System.out.println("Pre-order Traversal:");
         System.out.println(binaryTree.preOrderTraversal().toString());
 
+        System.out.println("\n\n\n==========================================================================");
         System.out.println("In-order Traversal:");
         System.out.println(binaryTree.inOrderTraversal().toString());
 
+        System.out.println("\n\n\n==========================================================================");
         System.out.println("Post-order Traversal:");
         System.out.println(binaryTree.postOrderTraversal().toString());
 
+        System.out.println("\n\n\n==========================================================================");
         System.out.println("Level-order Traversal:");
         System.out.println(binaryTree.levelOrderTraversal().toString());
 
+        System.out.println("\n\n\n==========================================================================");
         System.out.println("\nTree Visualization:");
         binaryTree.printTree(); // Print the tree structure
 
-        System.out.println("\nHeight of Tree :");
-        System.out.println(binaryTree.height);
+        System.out.println("\n\n\n==========================================================================");
+        System.out.println("\nLCA of 10,6");
+        System.out.println(binaryTree.lowestCommonAncestor(10, 6));
+
+        System.out.println("\n\n\n==========================================================================");
+        System.out.println("\nAre Trees identical :");
+        System.out.println(BinaryTree.identicalTrees(binaryTree, binaryTreeBeta));
     }
 }
