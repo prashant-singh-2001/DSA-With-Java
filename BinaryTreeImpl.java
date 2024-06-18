@@ -62,6 +62,7 @@ class BinaryTree {
         return identicalNode && rightIdentical && leftIdentical;
     }
 
+    // Instance function
     public void insert(int data) {
         if (root == null) {
             root = new TreeNode(data); // Create a new root node if tree is empty
@@ -146,6 +147,17 @@ class BinaryTree {
             node = node.left; // Go to the leftmost node
         }
         return node; // Return the leftmost node
+    }
+
+    public int depthOf(int a){
+        return depthOf(root, a,0);
+    }
+
+    private int depthOf(TreeNode root, int a,int depth) {
+        if(root==null) return -1;
+        if(root.data==a) return depth;
+        if(root.data>a) return depthOf(root.left, a, depth+1);
+        else return depthOf(root.right,a,depth+1);
     }
 
     private void calculateHeight() {
@@ -342,6 +354,10 @@ public class BinaryTreeImpl {
         System.out.println("\n\n\n==========================================================================");
         System.out.println("\nLCA of 10,6");
         System.out.println(binaryTree.lowestCommonAncestor(10, 6));
+
+        System.out.println("\n\n\n==========================================================================");
+        System.out.println("\nDepth of node 10 is : ");
+        System.out.println(binaryTree.depthOf(10));
 
         System.out.println("\n\n\n==========================================================================");
         System.out.println("\nAre Trees identical :");
