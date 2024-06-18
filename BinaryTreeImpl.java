@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 final class TreeNode {
     private static final int NaN = 0; // Define a constant for NaN value
@@ -60,6 +61,37 @@ class BinaryTree {
         boolean rightIdentical = identicalTrees(a.right, b.right);
         boolean leftIdentical = identicalTrees(a.left, b.left);
         return identicalNode && rightIdentical && leftIdentical;
+    }
+
+    public static List<Integer> topViewOfTree(BinaryTree bt) {
+        Map<Integer, Integer> topView = new TreeMap<>();
+        topViewOfTree(bt.root, 0, topView);
+        return new ArrayList<>(topView.values());
+    }
+
+    private static void topViewOfTree(TreeNode root, int side, Map<Integer, Integer> topView) {
+        if (root == null)
+            return;
+        if (!topView.containsKey(side)) {
+            topView.put(side, root.data);
+        }
+        topViewOfTree(root.left, side - 1, topView);
+        topViewOfTree(root.right, side + 1, topView);
+    }
+
+    public static List<Integer> bottomViewOfTree(BinaryTree bt) {
+        Map<Integer, Integer> bottomView = new TreeMap<>();
+        bottomViewOfTree(bt.root, 0, bottomView);
+        return new ArrayList<>(bottomView.values());
+    }
+
+    private static void bottomViewOfTree(TreeNode root, int side, Map<Integer, Integer> bottomView) {
+        if (root == null)
+            return;
+        bottomView.put(side, root.data);
+
+        bottomViewOfTree(root.left, side - 1, bottomView);
+        bottomViewOfTree(root.right, side + 1, bottomView);
     }
 
     // Instance function
@@ -149,15 +181,19 @@ class BinaryTree {
         return node; // Return the leftmost node
     }
 
-    public int depthOf(int a){
-        return depthOf(root, a,0);
+    public int depthOf(int a) {
+        return depthOf(root, a, 0);
     }
 
-    private int depthOf(TreeNode root, int a,int depth) {
-        if(root==null) return -1;
-        if(root.data==a) return depth;
-        if(root.data>a) return depthOf(root.left, a, depth+1);
-        else return depthOf(root.right,a,depth+1);
+    private int depthOf(TreeNode root, int a, int depth) {
+        if (root == null)
+            return -1;
+        if (root.data == a)
+            return depth;
+        if (root.data > a)
+            return depthOf(root.left, a, depth + 1);
+        else
+            return depthOf(root.right, a, depth + 1);
     }
 
     private void calculateHeight() {
@@ -362,5 +398,13 @@ public class BinaryTreeImpl {
         System.out.println("\n\n\n==========================================================================");
         System.out.println("\nAre Trees identical :");
         System.out.println(BinaryTree.identicalTrees(binaryTree, binaryTreeBeta));
+
+        System.out.println("\n\n\n==========================================================================");
+        System.out.println("\nTop View of Tree :");
+        System.out.println(BinaryTree.topViewOfTree(binaryTree));
+
+        System.out.println("\n\n\n==========================================================================");
+        System.out.println("\nBottom View of Tree :");
+        System.out.println(BinaryTree.bottomViewOfTree(binaryTree));
     }
 }
